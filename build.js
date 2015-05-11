@@ -28,14 +28,24 @@ glob( globPath, ( err, files ) => {
 
             if ( argv.watch ) watcher()
         })
-        .catch( console.error )
+        .catch( err => {
+            if ( err.loc && err.codeFrame && err.filename ) {
+                console.error( chalk.red( 'Error in file' ), err.filename, err.loc )
+                console.error( err.codeFrame )
+            }
+            console.error( err.message )
+        })
 })
 
 function transpile( file ) {
     return new Promise( ( resolve, reject ) => {
         log( 'Transpiling:', chalk.yellow( file ) )
         babel.transformFile( file, { ast: false }, ( err, res ) => {
-            if ( err ) reject( err )
+            if ( err ) {
+                return reject( Object.assign( err, {
+                    filename: file
+                }))
+            }
 
             var outPath = path.join( path.dirname( file ), path.basename( file ).replace( /^_/, '' ) )
 
@@ -43,7 +53,7 @@ function transpile( file ) {
             fs.writeFile( path.resolve( outPath ), res.code , {
                 encoding: 'utf8'
             }, err => {
-                if ( err ) reject( err )
+                if ( err ) return reject( err )
                 resolve()
             })
         })

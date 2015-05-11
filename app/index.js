@@ -39,30 +39,38 @@ var TestGenerator = (function (_Base) {
         _classCallCheck(this, TestGenerator);
 
         _get(Object.getPrototypeOf(TestGenerator.prototype), 'constructor', this).apply(this, args);
-        this.argument('TaskGenerator');
-        console.log('constructing test generator');
+
+        this.pkg = require('../package.json');
     }
 
     _inherits(TestGenerator, _Base);
 
     _createClass(TestGenerator, [{
-        key: 'prompting',
-        get: function () {
+        key: 'hello',
+        value: function hello() {
+            this.log(_yosay2['default']([_chalk2['default'].cyan('Urban Web Client'), 'Feed me information...'].join('\n')));
+        }
+    }, {
+        key: 'app',
+        value: function app() {
             var _this2 = this;
 
-            this.log(_yosay2['default']('Scaffolding...'));
+            this.prompt(this.prompts, function (props) {
+                _this2.props = props;
 
-            this.prompt([{
+                console.log('all done');
+            });
+        }
+    }], [{
+        key: 'prompts',
+        value: function prompts() {
+            return [{
                 name: 'taskName',
                 message: 'What is the name of your task?',
                 validate: function validate(str) {
                     return !/\s/.test(str);
                 }
-            }], function (props) {
-                _this2.props = props;
-
-                console.log('all done');
-            });
+            }];
         }
     }]);
 
