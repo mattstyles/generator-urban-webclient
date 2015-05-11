@@ -4,6 +4,8 @@
   "description": "Yeoman generator for a babel and react web client",
   "main": "index.js",
   "scripts": {
+    "build": "babel-node ./build.js",
+    "lint": "eslint ./app/*",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -14,11 +16,13 @@
   ],
   "author": "Matt Styles",
   "license": "WTFPL",
-  "dependencies": {
-    "babel": "^5.2.17"
-  },
+  "dependencies": {},
   "devDependencies": {
     "babel-eslint": "^3.1.1",
-    "eslint": "^0.21.0"
+    "chalk": "^1.0.0",
+    "eslint": "^0.21.0",
+    "glob": "^5.0.5",
+    "pretty-hrtime": "^1.0.0",
+    "tape": "^4.0.0"
   }
 }
