@@ -30,22 +30,21 @@ var _osenv = require('osenv');
 
 var _osenv2 = _interopRequireDefault(_osenv);
 
-var TestGenerator = (function (_Base) {
-    function TestGenerator() {
+var UrbanGenerator = (function (_Base) {
+    function UrbanGenerator() {
         for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
             args[_key] = arguments[_key];
         }
 
-        _classCallCheck(this, TestGenerator);
+        _classCallCheck(this, UrbanGenerator);
 
-        _get(Object.getPrototypeOf(TestGenerator.prototype), 'constructor', this).apply(this, args);
-
+        _get(Object.getPrototypeOf(UrbanGenerator.prototype), 'constructor', this).apply(this, args);
         this.pkg = require('../package.json');
     }
 
-    _inherits(TestGenerator, _Base);
+    _inherits(UrbanGenerator, _Base);
 
-    _createClass(TestGenerator, [{
+    _createClass(UrbanGenerator, [{
         key: 'hello',
         value: function hello() {
             this.log(_yosay2['default']([_chalk2['default'].cyan('Urban Web Client'), 'Feed me information...'].join('\n')));
@@ -55,27 +54,38 @@ var TestGenerator = (function (_Base) {
         value: function app() {
             var _this2 = this;
 
-            this.prompt(this.prompts, function (props) {
+            this.prompt(UrbanGenerator.prompts, function (props) {
                 _this2.props = props;
 
                 console.log('all done');
+                console.log(props);
             });
         }
     }], [{
         key: 'prompts',
-        value: function prompts() {
-            return [{
-                name: 'taskName',
-                message: 'What is the name of your task?',
-                validate: function validate(str) {
-                    return !/\s/.test(str);
-                }
-            }];
-        }
+        value: [{
+            name: 'projectName',
+            message: 'What is the name of your project?',
+            validate: function validate(str) {
+                return !/\s/.test(str);
+            }
+        }, {
+            name: 'projectDescription',
+            message: 'What is the project description?'
+        }, {
+            name: 'authorName',
+            message: 'What is the author name?',
+            'default': _osenv2['default'].user()
+        }, {
+            name: 'userName',
+            message: 'What is your github username?',
+            'default': _osenv2['default'].user().toLowerCase().replace(/\s/g, '')
+        }],
+        enumerable: true
     }]);
 
-    return TestGenerator;
+    return UrbanGenerator;
 })(_yeomanGenerator.Base);
 
-exports['default'] = TestGenerator;
+exports['default'] = UrbanGenerator;
 module.exports = exports['default'];

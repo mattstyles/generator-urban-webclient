@@ -40,7 +40,12 @@ glob( globPath, ( err, files ) => {
 function transpile( file ) {
     return new Promise( ( resolve, reject ) => {
         log( 'Transpiling:', chalk.yellow( file ) )
-        babel.transformFile( file, { ast: false }, ( err, res ) => {
+        babel.transformFile( file, {
+            ast: false,
+            optional: [
+                'es7.classProperties'
+            ]
+        }, ( err, res ) => {
             if ( err ) {
                 return reject( Object.assign( err, {
                     filename: file
