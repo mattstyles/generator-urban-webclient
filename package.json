@@ -6,6 +6,7 @@
   "scripts": {
     "prepublish": "npm run build",
     "build": "babel-node ./build.js",
+    "watch": "babel-node ./build.js --watch",
     "lint": "eslint ./app/*.js",
     "test": "babel-node test.js ./**/__test__/*.test.js"
   },
@@ -17,10 +18,16 @@
   ],
   "author": "Matt Styles",
   "license": "WTFPL",
-  "dependencies": {},
+  "dependencies": {
+    "chalk": "^1.0.0",
+    "osenv": "^0.1.0",
+    "yeoman-generator": "^0.19.2",
+    "yosay": "^1.0.3"
+  },
   "devDependencies": {
     "babel-eslint": "^3.1.1",
     "chalk": "^1.0.0",
+    "chokidar": "^1.0.1",
     "eslint": "^0.21.0",
     "glob": "^5.0.5",
     "minimist": "^1.1.1",
