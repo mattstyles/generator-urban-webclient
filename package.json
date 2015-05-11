@@ -4,9 +4,10 @@
   "description": "Yeoman generator for a babel and react web client",
   "main": "index.js",
   "scripts": {
+    "prepublish": "npm run build",
     "build": "babel-node ./build.js",
-    "lint": "eslint ./app/*",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint ./app/*.js",
+    "test": "babel-node test.js ./**/__test__/*.test.js"
   },
   "keywords": [
     "yeoman",
@@ -22,6 +23,7 @@
     "chalk": "^1.0.0",
     "eslint": "^0.21.0",
     "glob": "^5.0.5",
+    "minimist": "^1.1.1",
     "pretty-hrtime": "^1.0.0",
     "tape": "^4.0.0"
   }
