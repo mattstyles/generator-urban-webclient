@@ -39,7 +39,8 @@ function compile() {
         filename: argv.e,
         paths: [
             './src/',
-            './node_modules'
+            './node_modules',
+            './src/core/styles'
         ],
         compress: argv.c,
         sourceMap: false
