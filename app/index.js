@@ -16,6 +16,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
 
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
 var _yeomanGenerator = require('yeoman-generator');
 
 var _chalk = require('chalk');
@@ -30,6 +34,10 @@ var _osenv = require('osenv');
 
 var _osenv2 = _interopRequireDefault(_osenv);
 
+var _glob = require('glob');
+
+var _glob2 = _interopRequireDefault(_glob);
+
 var UrbanGenerator = (function (_Base) {
     function UrbanGenerator() {
         for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
@@ -39,7 +47,17 @@ var UrbanGenerator = (function (_Base) {
         _classCallCheck(this, UrbanGenerator);
 
         _get(Object.getPrototypeOf(UrbanGenerator.prototype), 'constructor', this).apply(this, args);
+
         this.pkg = require('../package.json');
+        this.option('skip-prompt', {
+            desc: 'Skips the prompt and uses defaults',
+            required: false,
+            defaults: false
+        });
+
+        if (process.env.DEBUG) {
+            this.destinationRoot(_path2['default'].join(__dirname, '/../debug'));
+        }
     }
 
     _inherits(UrbanGenerator, _Base);
@@ -50,15 +68,64 @@ var UrbanGenerator = (function (_Base) {
             this.log(_yosay2['default']([_chalk2['default'].cyan('Urban Web Client'), 'Feed me information...'].join('\n')));
         }
     }, {
-        key: 'app',
-        value: function app() {
+        key: 'prompting',
+        value: function prompting() {
             var _this2 = this;
+
+            if (this.options['skip-prompt']) {
+                this.log('Skipping prompt');
+                this.props = {
+                    projectName: 'debug-project',
+                    projectDescription: 'project description',
+                    authorName: 'Arthur Debug',
+                    userName: 'adebug'
+                };
+                return;
+            }
 
             this.prompt(UrbanGenerator.prompts, function (props) {
                 _this2.props = props;
+            });
+        }
+    }, {
+        key: 'app',
+        value: function app() {
+            var _this3 = this;
 
-                console.log('all done');
-                console.log(props);
+            var done = this.async();
+
+            this.log('Copying templates');
+
+            _glob2['default'](_path2['default'].join(this.sourceRoot(), '*'), {
+                dot: true
+            }, function (err, files) {
+                if (err) {
+                    throw new Error(err);
+                }
+
+                files.map(function (file) {
+                    return file.replace(_this3.sourceRoot(), '');
+                }).forEach(function (file) {
+                    _this3.fs.copyTpl(_this3.templatePath(file), _this3.destinationPath(file), _this3.props, {
+                        evaluate: /\{\{\{(.+?)\}\}\}/g,
+                        interpolate: /\{\{(.+?)\}\}/g,
+                        escape: /\{\{-(.+?)\}\}/g
+                    });
+                });
+
+                done();
+            });
+        }
+    }, {
+        key: 'install',
+        value: function install() {
+            if (this.options['skip-install']) {
+                this.log('Skipping install');
+                return;
+            }
+
+            this.installDependencies({
+                bower: false
             });
         }
     }], [{
@@ -75,11 +142,13 @@ var UrbanGenerator = (function (_Base) {
         }, {
             name: 'authorName',
             message: 'What is the author name?',
-            'default': _osenv2['default'].user()
+            'default': _osenv2['default'].user(),
+            store: true
         }, {
             name: 'userName',
             message: 'What is your github username?',
-            'default': _osenv2['default'].user().toLowerCase().replace(/\s/g, '')
+            'default': _osenv2['default'].user().toLowerCase().replace(/\s/g, ''),
+            store: true
         }],
         enumerable: true
     }]);
