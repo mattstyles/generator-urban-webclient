@@ -3,7 +3,7 @@ import './utils/font'
 
 import React from 'react'
 
-import dispacther from './dispatchers/appDispatcher'
+import dispatcher from './dispatchers/appDispatcher'
 import MyComponent from 'myComponent'
 
 class App extends React.Component {
@@ -14,7 +14,7 @@ class App extends React.Component {
     render() {
         return (
             <div className="container">
-                <h1>Hello React <span>{ App.stuff.foo }</span></h1>
+                <h1>Hello React</h1>
                 <MyComponent />
             </div>
         )

@@ -99,7 +99,7 @@ var UrbanGenerator = (function (_Base) {
 
             this.log('Copying templates');
 
-            _glob2['default'](_path2['default'].join(this.sourceRoot(), '*'), {
+            _glob2['default'](_path2['default'].join(this.sourceRoot(), '**/*'), {
                 dot: true
             }, function (err, files) {
                 if (err) {
