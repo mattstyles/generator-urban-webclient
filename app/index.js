@@ -72,6 +72,8 @@ var UrbanGenerator = (function (_Base) {
         value: function prompting() {
             var _this2 = this;
 
+            var done = this.async();
+
             if (this.options['skip-prompt']) {
                 this.log('Skipping prompt');
                 this.props = {
@@ -80,11 +82,12 @@ var UrbanGenerator = (function (_Base) {
                     authorName: 'Arthur Debug',
                     userName: 'adebug'
                 };
-                return;
+                return done();
             }
 
             this.prompt(UrbanGenerator.prompts, function (props) {
                 _this2.props = props;
+                done();
             });
         }
     }, {
