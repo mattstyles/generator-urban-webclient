@@ -73,6 +73,7 @@
     "eslint": "^0.21.0",
     "flowcheck": "^0.2.6",
     "ho-compiler": "^0.4.0",
+    "ho-conformance": "^0.1.0",
     "livereload": "^0.3.7",
     "minimist": "^1.1.1",
     "mustache": "^2.0.0",

@@ -22,9 +22,9 @@
   "license": "WTFPL",
   "dependencies": {
     "chalk": "^1.0.0",
+    "glob": "^5.0.5",
     "osenv": "^0.1.0",
     "yeoman-generator": "^0.19.2",
-    "glob": "^5.0.5",
     "yosay": "^1.0.3"
   },
   "devDependencies": {
