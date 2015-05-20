@@ -38,8 +38,9 @@ function compile() {
     var ho = new Ho({
         filename: argv.e,
         paths: [
-            './src/',
-            './node_modules'
+            './src',
+            './node_modules',
+            './src/core/styles'
         ],
         compress: argv.c,
         sourceMap: false
