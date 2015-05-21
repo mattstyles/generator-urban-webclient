@@ -77,6 +77,12 @@ export default class UrbanGenerator extends Base {
 
         this.log( 'Copying templates' )
 
+        this.fs.copy(
+            this.templatePath( '_npmignore' ),
+            this.destinationPath( '.npmignore' ),
+            this.props
+        )
+
         glob( path.join( this.sourceRoot(), '**/*' ), {
             dot: true
         }, ( err, files ) => {
