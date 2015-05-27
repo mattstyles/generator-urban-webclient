@@ -90,9 +90,13 @@ export default class UrbanGenerator extends Base {
                 throw new Error( err )
             }
 
-            files.map( file => {
-                return file.replace( this.sourceRoot(), '' )
-            })
+            files
+                .filter( file => {
+                    return !/_npmignore/.test( file )
+                })
+                .map( file => {
+                    return file.replace( this.sourceRoot(), '' )
+                })
                 .forEach( file => {
                     this.fs.copyTpl(
                         this.templatePath( file ),
