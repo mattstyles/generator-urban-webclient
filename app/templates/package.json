@@ -25,11 +25,6 @@
     "premake": "npm run clean",
     "make": "NODE_ENV=prod npm run make:assets && npm run make:html && npm run make:polyfill && npm run make:scripts && npm run make:styles"
   },
-  "aliasify": {
-    "aliases": {
-      "react": "react/dist/react"
-    }
-  },
   "keywords": [
     "yeoman",
     "generator",
