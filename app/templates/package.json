@@ -66,15 +66,14 @@
   "homepage": "https://github.com/{{ userName }}/{{ projectName }}",
   "license": "WTFPL",
   "dependencies": {
-    "babel": "^5.2.17",
-    "classnames": "^2.1.1",
-    "eventemitter3": "^1.1.0",
+    "babel": "^5.8.21",
+    "classnames": "^2.1.3",
+    "eventemitter3": "^1.1.1",
     "flux": "^2.0.3",
     "normalize.css": "^3.0.3",
     "react": "^0.13.3",
-    "react-router": "^0.13.3",
-    "webfontloader": "1.5.18",
-    "whatwg-fetch": "^0.8.1"
+    "webfontloader": "^1.6.6",
+    "whatwg-fetch": "^0.9.0"
   },
   "devDependencies": {
     "autoprefixer-transform": "^0.3.1",
